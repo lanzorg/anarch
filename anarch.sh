@@ -27,7 +27,7 @@ setup_system()
     # Install the intel drivers.
     sudo pacman -S --noconfirm libva-intel-driver libva-utils libvdpau-va-gl lib32-vulkan-intel vulkan-intel
 
-    # Install the intel microcode package
+    # Install the intel microcode package.
     sudo pacman -S --noconfirm intel-ucode
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 
