@@ -422,8 +422,8 @@ main()
     echo 'Installing and configuring phpstorm...'
     setup_phpstorm > /dev/null 2>&1
 
-    echo 'Installing and configuring setup_python...'
-    setup_setup_python > /dev/null 2>&1
+    echo 'Installing and configuring python...'
+    setup_python > /dev/null 2>&1
 
     echo 'Installing and configuring vmware-workstation...'
     setup_vmware_workstation > /dev/null 2>&1
