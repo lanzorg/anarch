@@ -296,7 +296,7 @@ setup_phpstorm()
 setup_python()
 {
     # Install the python and python-pipenv packages.
-    yay -S --noconfirm python python-pipenv
+    sudo pacman -S --noconfirm python python-pipenv
 }
 
 setup_transmission()
