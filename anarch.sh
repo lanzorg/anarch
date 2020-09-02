@@ -72,11 +72,11 @@ setup_gnome()
 
     # Install the papirus-icon-theme package.
     sudo pacman -S --noconfirm papirus-icon-theme
-    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Light'
 
     # Install the arc-gtk-theme package.
     sudo pacman -S --noconfirm arc-gtk-theme
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Darker'
 
     # Enable animations.
     gsettings set org.gnome.desktop.interface enable-animations true
@@ -221,6 +221,7 @@ setup_insomnia()
     yay -S --noconfirm insomnia
 
     # Edit the settings.
+    timeout 5s insomnia
     settings=$(find "${HOME}" -type f -name insomnia.Settings.db)
     if [[ -n "${settings}" ]]; then
         sed -i "s/\"autoHideMenuBar\":false/\"autoHideMenuBar\":true/g" "${settings}"
@@ -404,14 +405,14 @@ main()
 
     ###
 
-    echo 'Installing and configuring android...'
-    setup_android > /dev/null 2>&1
+    # echo 'Installing and configuring android...'
+    # setup_android > /dev/null 2>&1
 
     echo 'Installing and configuring docker...'
     setup_docker > /dev/null 2>&1
 
-    echo 'Installing and configuring flutter...'
-    setup_flutter > /dev/null 2>&1
+    # echo 'Installing and configuring flutter...'
+    # setup_flutter > /dev/null 2>&1
 
     echo 'Installing and configuring insomnia...'
     setup_insomnia > /dev/null 2>&1
@@ -419,8 +420,8 @@ main()
     echo 'Installing and configuring nodejs...'
     setup_nodejs > /dev/null 2>&1
 
-    echo 'Installing and configuring phpstorm...'
-    setup_phpstorm > /dev/null 2>&1
+    # echo 'Installing and configuring phpstorm...'
+    # setup_phpstorm > /dev/null 2>&1
 
     echo 'Installing and configuring python...'
     setup_python > /dev/null 2>&1
