@@ -150,13 +150,13 @@ setup_android()
     # Add the environment variables to .bashrc file.
     if ! grep -Fxq 'export ANDROID_HOME="/opt/android-sdk"' "${HOME}/.bashrc"; then
         echo '' | tee -a "$HOME/.bashrc"
-        echo '# Android environment variables' | tee -a "$HOME/.bashrc"
+        echo '# Android related environment variables' | tee -a "$HOME/.bashrc"
         echo 'export ANDROID_HOME="/opt/android-sdk"' | tee -a "${HOME}/.bashrc"
         echo 'export PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools"' | tee -a "${HOME}/.bashrc"
+        source "${HOME}/.bashrc"
     fi
 
     # Install android build tools, platforms and system images.
-    source "${HOME}/.bashrc"
     (for run in {1..1000}; do echo y; done) >> yep.txt
     cat ./yep.txt | sdkmanager --update
     cat ./yep.txt | sdkmanager 'platforms;android-29'
@@ -286,6 +286,16 @@ setup_nodejs()
 {
     # Install the nodejs, npm and yarn packages.
     sudo pacman -S --noconfirm nodejs npm yarn
+
+    # Edit the settings.
+    mkdir "${HOME}/.npm-global"
+    npm config set prefix "${HOME}/.npm-global"
+    if ! grep -Fxq 'export PATH="${PATH}:${HOME}/.npm-global/bin"' "${HOME}/.bashrc"; then
+        echo '' | tee -a "$HOME/.bashrc"
+        echo '# Node related environment variables' | tee -a "$HOME/.bashrc"
+        echo 'export PATH="${PATH}:${HOME}/.npm-global/bin"' | tee -a "${HOME}/.bashrc"
+        source "${HOME}/.bashrc"
+    fi
 }
 
 setup_phpstorm()
@@ -298,6 +308,15 @@ setup_python()
 {
     # Install the python and python-pipenv packages.
     sudo pacman -S --noconfirm python python-pipenv
+
+    # Edit the settings.
+    if ! grep -Fxq 'export PYTHONDONTWRITEBYTECODE=1' "${HOME}/.bashrc"; then
+        echo '' | tee -a "$HOME/.bashrc"
+        echo '# Python related environment variables' | tee -a "$HOME/.bashrc"
+        echo 'export PYTHONDONTWRITEBYTECODE=1' | tee -a "${HOME}/.bashrc"
+        echo 'export PIPENV_VENV_IN_PROJECT=1' | tee -a "${HOME}/.bashrc"
+        source "${HOME}/.bashrc"
+    fi
 }
 
 setup_transmission()
@@ -406,13 +425,13 @@ main()
     ###
 
     # echo 'Installing and configuring android...'
-    # setup_android > /dev/null 2>&1
+    setup_android > /dev/null 2>&1
 
     echo 'Installing and configuring docker...'
     setup_docker > /dev/null 2>&1
 
     # echo 'Installing and configuring flutter...'
-    # setup_flutter > /dev/null 2>&1
+    setup_flutter > /dev/null 2>&1
 
     echo 'Installing and configuring insomnia...'
     setup_insomnia > /dev/null 2>&1
