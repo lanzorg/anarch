@@ -72,7 +72,7 @@ setup_gnome()
 
     # Install the papirus-icon-theme package.
     sudo pacman -S --noconfirm papirus-icon-theme
-    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Light'
+    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 
     # Install the arc-gtk-theme package.
     sudo pacman -S --noconfirm arc-gtk-theme
