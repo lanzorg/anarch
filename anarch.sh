@@ -234,14 +234,12 @@ setup_jdownloader()
     yay -S --noconfirm jdk-jetbrains
     sudo archlinux-java set jdk-jetbrains
 
-    # Edit the /etc/environment file.
-    if ! grep -Fxq '_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=lcd"' /etc/environment; then
-        echo '_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=lcd"' | sudo tee -a /etc/environment
-        source /etc/environment
-    fi
-
     # Install the jdownloader2 package.
     yay -S --noconfirm jdownloader2
+
+    # Fix the desktop file.
+    sudo sed -i "s/Exec=.*/Exec=env _JAVA_OPTIONS=\"-Dawt.useSystemAAFontSettings=lcd\" JDownloader/g" /usr/share/applications/jdownloader.desktop
+    sudo sed -i "s/TryExec=.*/TryExec=JDownloader/g" /usr/share/applications/jdownloader.desktop
 
     # Edit the settings.
     settings="${HOME}/.jd/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json"
