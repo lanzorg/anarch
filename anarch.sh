@@ -294,6 +294,10 @@ setup_nodejs()
         echo 'export PATH="${PATH}:${HOME}/.npm-global/bin"' | tee -a "${HOME}/.bashrc"
         source "${HOME}/.bashrc"
     fi
+
+    # Install some global packages.
+    npm install -g @angular/cli
+    npm update -g
 }
 
 setup_phpstorm()
