@@ -91,8 +91,8 @@ setup_gnome()
     gsettings set org.gnome.desktop.screensaver picture-options 'zoom'
 
     # Change the GDM background settings.
-    curl 'https://github.com/DimaZirix/fedora-gdm-wallpaper/releases/download/1.4/set-gdm-wallpaper.sh' -o 'set-gdm-wallpaper.sh'
-    chmod +x set-gdm-wallpaper.sh && set-gdm-wallpaper.sh ${background}
+    curl 'https://github.com/DimaZirix/fedora-gdm-wallpaper/releases/download/1.4/set-gdm-wallpaper.sh' -o ./set-gdm-wallpaper.sh
+    chmod +x ./set-gdm-wallpaper.sh && ./set-gdm-wallpaper.sh ${background}
 
     # Enable animations.
     gsettings set org.gnome.desktop.interface enable-animations true
