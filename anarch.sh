@@ -63,20 +63,36 @@ setup_gnome()
     sudo sed -i "s/#WaylandEnable=false/WaylandEnable=false/g" /etc/gdm/custom.conf
 
     # Change the gnome fonts.
-    sudo pacman -S --noconfirm ttf-ubuntu-font-family
-    gsettings set org.gnome.desktop.interface font-name 'Ubuntu 10'
-    gsettings set org.gnome.desktop.interface document-font-name 'Ubuntu 10'
-    gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 12'
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 10'
-    gsettings set org.gnome.desktop.wm.preferences titlebar-uses-system-font false
+    # sudo pacman -S --noconfirm ttf-ubuntu-font-family
+    # gsettings set org.gnome.desktop.interface font-name 'Ubuntu 10'
+    # gsettings set org.gnome.desktop.interface document-font-name 'Ubuntu 10'
+    # gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 12'
+    # gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 10'
+    # gsettings set org.gnome.desktop.wm.preferences titlebar-uses-system-font false
 
     # Install the papirus-icon-theme package.
     sudo pacman -S --noconfirm papirus-icon-theme
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 
     # Install the arc-gtk-theme package.
-    sudo pacman -S --noconfirm arc-gtk-theme
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Darker'
+    # sudo pacman -S --noconfirm arc-gtk-theme
+    # gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Darker'
+
+     # Download the background file.
+    background='/usr/share/backgrounds/bg.png'
+    sudo curl 'https://raw.githubusercontent.com/lanzorg/anarch/master/assets/bg.png' -o ${background}
+
+    # Change background settings.
+    gsettings set org.gnome.desktop.background picture-uri "file:///${background}"
+    gsettings set org.gnome.desktop.background picture-options 'zoom'
+
+    # Change lockscreen settings.
+    gsettings set org.gnome.desktop.screensaver picture-uri "file://${background}"
+    gsettings set org.gnome.desktop.screensaver picture-options 'zoom'
+
+    # Change the GDM background settings.
+    curl 'https://github.com/DimaZirix/fedora-gdm-wallpaper/releases/download/1.4/set-gdm-wallpaper.sh' -o 'set-gdm-wallpaper.sh'
+    chmod +x set-gdm-wallpaper.sh && set-gdm-wallpaper.sh ${background}
 
     # Enable animations.
     gsettings set org.gnome.desktop.interface enable-animations true
@@ -98,6 +114,7 @@ setup_gnome()
     gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 0
     gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to 0
     gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 4000
+    sudo -u gdm dbus-launch gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
     
     # Install and configure dash-to-panel.
     yay -S --noconfirm gnome-shell-extension-dash-to-panel
